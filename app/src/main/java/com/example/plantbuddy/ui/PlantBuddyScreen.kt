@@ -7,6 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,15 +19,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 
 import com.example.plantbuddy.ViewModel.PlantViewModel
+import com.example.plantbuddy.ViewModel.createImageUri
 
 @Composable
 fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
@@ -39,6 +45,18 @@ fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
     ) { uri: Uri? ->
         plantViewModel.updateImage(uri)
     }
+
+    val context = LocalContext.current
+    var cameraImageUri by remember { mutableStateOf<Uri?>(null) }
+
+    val takePictureLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicture()
+    ) { success ->
+        if (success && cameraImageUri != null) {
+            plantViewModel.updateImage(cameraImageUri)
+        }
+    }
+
 
     Column(modifier = Modifier.
     fillMaxSize()
@@ -53,25 +71,34 @@ fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
             style = MaterialTheme.typography.headlineMedium
         )
 
-        Button(onClick = { launcher.launch("image/*") }) {
-            Text("Pick a plant photo")
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(onClick = { launcher.launch("image/*") }) {
+                Text("\uD83D\uDCC1 Pick from gallery")
+            }
+            Button(onClick = {
+                cameraImageUri = createImageUri(context)
+                takePictureLauncher.launch(cameraImageUri!!)
+            }) {
+                Text("\uD83D\uDCF7 Take a photo")
+            }
         }
 
-        selectedUri?.let { uri ->
-            Image(
-                painter = rememberAsyncImagePainter(uri),
-                contentDescription = "Selected Plant Image",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp)
-            )
+            selectedUri?.let { uri ->
+                Image(
+                    painter = rememberAsyncImagePainter(uri),
+                    contentDescription = "Selected Plant Image",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
+                )
+            }
+
+            Text(text = diagnosis)
         }
-
-        Text(text = diagnosis)
-    }
-
 }
+
+
 
 @Preview
 @Composable

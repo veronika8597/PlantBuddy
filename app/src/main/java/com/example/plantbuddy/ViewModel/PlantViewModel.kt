@@ -1,9 +1,12 @@
 package com.example.plantbuddy.ViewModel
 
+import android.content.Context
 import android.net.Uri
+import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.io.File
 
 class PlantViewModel : ViewModel()  {
 
@@ -21,4 +24,13 @@ class PlantViewModel : ViewModel()  {
             "No image selected"
         }
     }
+}
+
+fun createImageUri(context: Context): Uri {
+    val imageFile = File.createTempFile("plant_photo_", ".jpg", context.cacheDir)
+    return FileProvider.getUriForFile(
+        context,
+        "${context.packageName}.provider",
+        imageFile
+    )
 }
