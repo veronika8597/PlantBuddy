@@ -61,5 +61,21 @@ dependencies {
     implementation(libs.coil.compose)
 
 
+/*    //Tensorflow
+    implementation(libs.tensorflow.lite)
+    implementation(libs.tensorflow.lite.support)
+    implementation(libs.tensorflow.lite.task.vision)*/
+
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // OkHttp for networking
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    // Coroutines (for suspend functions)
+    implementation(libs.kotlinx.coroutines.android)
 
 }

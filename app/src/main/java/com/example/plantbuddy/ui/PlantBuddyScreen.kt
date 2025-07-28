@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,12 +31,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
-
 import com.example.plantbuddy.ViewModel.PlantViewModel
-import com.example.plantbuddy.ViewModel.createImageUri
+
 
 @Composable
 fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
+
+    val isLoading by plantViewModel.isLoading.collectAsState()
 
     val selectedUri by plantViewModel.selectedImageUri.collectAsState()
     val diagnosis by plantViewModel.diagnosis.collectAsState()
@@ -76,7 +78,7 @@ fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
                 Text("\uD83D\uDCC1 Pick from gallery")
             }
             Button(onClick = {
-                cameraImageUri = createImageUri(context)
+                cameraImageUri = plantViewModel.createImageUri(context)
                 takePictureLauncher.launch(cameraImageUri!!)
             }) {
                 Text("\uD83D\uDCF7 Take a photo")
@@ -94,11 +96,29 @@ fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
                 )
             }
 
-            Text(text = diagnosis)
+        if (isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+            )
         }
+
+            Text(text = diagnosis)
+
+        Spacer(modifier = Modifier.padding(10.dp))
+        Text(
+            text = "Powered by PlantNet",
+            style = MaterialTheme.typography.bodySmall
+        )
+
+        Button(onClick = {
+            plantViewModel.diagnosePlant(context)
+        }) {
+            Text("🔍 Diagnose")
+        }
+    }
 }
-
-
 
 @Preview
 @Composable
