@@ -78,4 +78,9 @@ dependencies {
     // Coroutines (for suspend functions)
     implementation(libs.kotlinx.coroutines.android)
 
+    //lottie
+    implementation(libs.lottie.compose)
+
+    implementation(libs.ui.graphics)
+
 }
