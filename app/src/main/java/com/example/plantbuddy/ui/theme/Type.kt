@@ -15,6 +15,13 @@ val DancingScript = FontFamily(
     Font(R.font.dancing_script_semibold, FontWeight.SemiBold),
     Font(R.font.dancing_script_medium, FontWeight.Medium)
 )
+val Zain = FontFamily(
+    Font(R.font.zain_regular, FontWeight.Normal),
+    Font(R.font.zain_bold, FontWeight.Bold),
+    Font(R.font.zain_extra_bold, FontWeight.ExtraBold),
+    Font(R.font.zain_italic, FontWeight.Thin),
+    Font(R.font.zain_light, FontWeight.Light)
+)
 
 val Typography = Typography(
     displayLarge = TextStyle(
@@ -38,9 +45,15 @@ val Typography = Typography(
         fontSize = 16.sp
     ),
     labelSmall = TextStyle(
-        fontFamily = DancingScript,
-        fontWeight = FontWeight.Medium,
+        fontFamily = Zain,
+        fontWeight = FontWeight.Bold,
         fontSize = 12.sp
+    ),
+
+    bodyMedium = TextStyle(
+        fontFamily = Zain,
+        fontWeight = FontWeight.Normal,
+        fontSize = 20.sp
     )
 )
 

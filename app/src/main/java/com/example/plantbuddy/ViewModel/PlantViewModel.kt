@@ -58,9 +58,10 @@ class PlantViewModel : ViewModel()  {
 
             val result = repository.uploadImage(context, uri)
 
-            _diagnosis.value = result.getOrElse {
-                "Error: ${it.message}"
-            }
+            _diagnosis.value = result.fold(
+                onSuccess = { plantName -> "Plant name: $plantName"},
+                onFailure = { error -> "Error: ${error.message}" }
+            )
 
             _isLoading.value = false
         }
