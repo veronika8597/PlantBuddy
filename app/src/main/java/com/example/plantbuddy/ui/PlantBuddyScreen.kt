@@ -1,5 +1,6 @@
 package com.example.plantbuddy.ui
 
+import android.R.attr.text
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,6 +21,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,11 +32,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -48,6 +56,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.plantbuddy.R
 import com.example.plantbuddy.ViewModel.PlantViewModel
 
 
@@ -77,88 +86,120 @@ fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
     }
 
     LoadingOverlay(isLoading) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-        ) {
-            // 🌿 Background animation in corner
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Center)
+        {
             PlantBuddyBackground()
-
-            // 🌿 Background animation
-            Column(
-                modifier = Modifier.fillMaxSize()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(20.dp)
-
-            ) {
-
-                Spacer(modifier = Modifier.padding(15.dp))
-                Text(
-                    text = "Plant Buddy 🌿",
-                    color = Color(0xFF022F02),
-                    style = MaterialTheme.typography.displayLarge
-                )
-
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(
-                        onClick = { launcher.launch("image/*") },
-                        shape = RoundedCornerShape(13.dp),
+            Column {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 35.dp)
+                        .padding(start = 16.dp),
+                    contentAlignment = Alignment.TopStart
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.plantasia_logo),
+                        contentDescription = "App Logo",
                         modifier = Modifier
-                            .height(40.dp)
-                            .weight(1f) // this helps buttons share space evenly in Row
-                        ) {
-                        Text("\uD83D\uDCC1 Pick from gallery")
-
-                    }
-                    Button(onClick = {
-                        cameraImageUri = plantViewModel.createImageUri(context)
-                        takePictureLauncher.launch(cameraImageUri!!) },
-                        shape = RoundedCornerShape(13.dp),
-                        modifier = Modifier
-                            .height(40.dp)
-                            .weight(1f) // this helps buttons share space evenly in Row
-                    ) {
-                        Text("\uD83D\uDCF7 Take a photo")
-                    }
-                }
-
-                Row {
-                    selectedUri?.let { uri ->
-                        Image(
-                            painter = rememberAsyncImagePainter(uri),
-                            contentDescription = "Selected Plant Image",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .width(150.dp)
-                                .height(250.dp)
-                                .clip(RoundedCornerShape(16.dp))
-                        )
-                    }
-
-
-                    UnderlineLabelText(
-                        fullLine = diagnosis,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 16.dp)
+                            .fillMaxWidth(0.65f), // Adjust fraction as needed
                     )
                 }
 
-                Row {
-                    Button(
-                        onClick = {
-                            plantViewModel.diagnosePlant(context)
-                        },
-                        shape = RoundedCornerShape(13.dp),
-                        modifier = Modifier
-                            .height(40.dp)
-                            .weight(1f) // this helps buttons share space evenly in Row
-                    ) {
-                        Text("🔍 Diagnose")
-                    }
-                }
 
+                Card(
+                    modifier = Modifier.fillMaxSize()
+                        .padding(16.dp)
+                        .padding(bottom = 100.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color(0xA6FFFFFF)),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+
+                    ) {
+
+                    Spacer(modifier = Modifier.padding(15.dp))
+
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.padding(10.dp)) {
+                        Button(
+                            onClick = { launcher.launch("image/*") },
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier
+                                .height(40.dp)
+                                .weight(1f) // this helps buttons share space evenly in Row
+                        ) {
+                            Text("\uD83D\uDCC1 Pick from gallery")
+
+                        }
+                        Button(
+                            onClick = {
+                                cameraImageUri = plantViewModel.createImageUri(context)
+                                takePictureLauncher.launch(cameraImageUri!!)
+                            },
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier
+                                .height(40.dp)
+                                .weight(1f) // this helps buttons share space evenly in Row
+                        ) {
+                            Text("\uD83D\uDCF7 Take a photo")
+                        }
+                    }
+
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Card(
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .width(250.dp)
+                                .shadow(8.dp, RoundedCornerShape(16.dp)), // depth
+                            shape = RoundedCornerShape(16.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.White),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+
+                            ) {
+
+                            Box(modifier = Modifier.padding(8.dp)) {
+                                selectedUri?.let { uri ->
+                                    Image(
+                                        painter = rememberAsyncImagePainter(uri),
+                                        contentDescription = "Selected Plant Image",
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(220.dp)
+                                            .clip(RoundedCornerShape(12.dp))
+                                    )
+                                }
+
+                            }
+
+
+                            UnderlineLabelText(
+                                fullLine = diagnosis,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
+                            )
+                        }
+                    }
+
+
+                    Row(modifier = Modifier.padding(10.dp)) {
+                        Button(
+                            onClick = {
+                                plantViewModel.diagnosePlant(context)
+                            },
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier
+                                .height(40.dp)
+                                .weight(1f) // this helps buttons share space evenly in Row
+                        ) {
+                            Text("🔍 Diagnose")
+                        }
+                    }
+
+                }
             }
         }
     }
@@ -203,28 +244,22 @@ fun LoadingOverlay(isLoading: Boolean, content: @Composable () -> Unit) {
 
 @Composable
 fun PlantBuddyBackground() {
-    val bgComposition by rememberLottieComposition(LottieCompositionSpec.Asset("bg_plant.json"))
-    val bgProgress by animateLottieCompositionAsState(bgComposition, iterations = LottieConstants.IterateForever)
 
     Box(modifier = Modifier.fillMaxSize()) {
-        //Background animation
-        LottieAnimation(
-            composition = bgComposition,
-            progress = bgProgress,
-            modifier = Modifier
-                .width(240.dp)   // your intended rectangle width
-                .height(320.dp)  // your intended rectangle height
-                .align(Alignment.BottomEnd)
-                .padding(bottom = 10.dp)
+        Image(
+            painter = painterResource(id = R.drawable.plantasia_bg),
+            contentDescription = "App Background",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
         )
 
         Text(
             text = "Powered by PlantNet",
             style = MaterialTheme.typography.labelSmall,
-            modifier = Modifier.align(Alignment.BottomCenter)
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
                 .padding(bottom = 13.dp)
         )
-
     }
 
 }
