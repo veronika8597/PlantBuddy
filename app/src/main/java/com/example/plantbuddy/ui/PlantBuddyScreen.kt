@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -108,7 +109,7 @@ fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
 
                 Card(
                     modifier = Modifier.fillMaxSize()
-                        .padding(16.dp)
+                        .padding(start = 16.dp, end = 16.dp)
                         .padding(bottom = 100.dp),
                     shape = RoundedCornerShape(16.dp),
                     colors = CardDefaults.cardColors(containerColor = Color(0xA6FFFFFF)),
@@ -123,6 +124,10 @@ fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
                         Button(
                             onClick = { launcher.launch("image/*") },
                             shape = RoundedCornerShape(8.dp),
+                            elevation = ButtonDefaults.buttonElevation(
+                                defaultElevation = 4.dp,
+                                pressedElevation = 8.dp
+                            ),
                             modifier = Modifier
                                 .height(40.dp)
                                 .weight(1f) // this helps buttons share space evenly in Row
@@ -136,6 +141,10 @@ fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
                                 takePictureLauncher.launch(cameraImageUri!!)
                             },
                             shape = RoundedCornerShape(8.dp),
+                            elevation = ButtonDefaults.buttonElevation(
+                                defaultElevation = 4.dp,
+                                pressedElevation = 8.dp
+                            ),
                             modifier = Modifier
                                 .height(40.dp)
                                 .weight(1f) // this helps buttons share space evenly in Row
@@ -151,7 +160,7 @@ fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
                         Card(
                             modifier = Modifier
                                 .padding(8.dp)
-                                .width(250.dp)
+                                .width(360.dp)
                                 .shadow(8.dp, RoundedCornerShape(16.dp)), // depth
                             shape = RoundedCornerShape(16.dp),
                             colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -167,7 +176,7 @@ fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
                                         contentScale = ContentScale.Crop,
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .height(220.dp)
+                                            .height(300.dp)
                                             .clip(RoundedCornerShape(12.dp))
                                     )
                                 }
@@ -191,6 +200,10 @@ fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
                                 plantViewModel.diagnosePlant(context)
                             },
                             shape = RoundedCornerShape(8.dp),
+                            elevation = ButtonDefaults.buttonElevation(
+                                defaultElevation = 4.dp,
+                                pressedElevation = 8.dp
+                            ),
                             modifier = Modifier
                                 .height(40.dp)
                                 .weight(1f) // this helps buttons share space evenly in Row
