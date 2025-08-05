@@ -29,8 +29,6 @@
 
 ## 📸 Preview
 
-![screenshot](screenshots/plantasia_preview.png)  
-<sub>_Image: actual screenshot of Plantasia in action_</sub>
 
 ---
 
