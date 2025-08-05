@@ -2,12 +2,11 @@ package com.example.plantbuddy.data.repository
 
 import android.content.Context
 import android.net.Uri
-import com.example.plantbuddy.Model.PlantPredictionResponse
+import com.example.plantbuddy.BuildConfig.PLANT_NET_API_KEY
 import com.example.plantbuddy.data.network.RetrofitInstance
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.Response
 
 
 class PlantRepository {
@@ -35,7 +34,7 @@ class PlantRepository {
                 requestBody
             )
 
-            val apiKey = "2b10M1th5Tf2kQgSBMgf6dZe"
+            val apiKey = PLANT_NET_API_KEY
             val response = RetrofitInstance.api.uploadImage(mutableListOf(multipart), apiKey)
             val prediction = response.body()
 

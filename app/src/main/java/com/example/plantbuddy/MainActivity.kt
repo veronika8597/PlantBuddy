@@ -4,19 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.plantbuddy.ui.PlantBuddyScreen
-import com.example.plantbuddy.ui.theme.PlantBuddyTheme
+import com.example.plantbuddy.ui.PlantasiaScreen
+import com.example.plantbuddy.ui.theme.PlantasiaTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +26,8 @@ class MainActivity : ComponentActivity() {
                     showSplash = false
                 }
             } else {
-                PlantBuddyTheme {
-                    PlantBuddyScreen()
+                PlantasiaTheme {
+                    PlantasiaScreen()
                 }
             }
         }
@@ -43,7 +38,7 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun MainActivityPreview() {
-    PlantBuddyTheme {
-        PlantBuddyScreen()
+    PlantasiaTheme {
+        PlantasiaScreen()
     }
 }

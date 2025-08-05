@@ -1,6 +1,5 @@
 package com.example.plantbuddy.ui
 
-import android.R.attr.text
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,7 +32,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -62,7 +59,7 @@ import com.example.plantbuddy.ViewModel.PlantViewModel
 
 
 @Composable
-fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
+fun PlantasiaScreen(plantViewModel: PlantViewModel = viewModel()){
 
     val isLoading by plantViewModel.isLoading.collectAsState()
 
@@ -89,7 +86,7 @@ fun PlantBuddyScreen(plantViewModel: PlantViewModel = viewModel()){
     LoadingOverlay(isLoading) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Center)
         {
-            PlantBuddyBackground()
+            PlantasiaBackground()
             Column {
                 Box(
                     modifier = Modifier
@@ -256,7 +253,7 @@ fun LoadingOverlay(isLoading: Boolean, content: @Composable () -> Unit) {
 }
 
 @Composable
-fun PlantBuddyBackground() {
+fun PlantasiaBackground() {
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -313,6 +310,6 @@ fun UnderlineLabelText(fullLine: String, modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-fun PlantBuddyScreenPreview() {
-    PlantBuddyScreen()
+fun PlantasiaScreenPreview() {
+    PlantasiaScreen()
 }

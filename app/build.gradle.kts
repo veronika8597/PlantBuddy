@@ -16,6 +16,18 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val plantApiKey: String = rootProject.file("local.properties")
+            .readLines()
+            .find { it.startsWith("PLANT_NET_API_KEY=") }
+            ?.substringAfter("=")
+            ?: "MISSING_KEY"
+
+        buildConfigField(
+            "String",
+            "PLANT_NET_API_KEY",
+            "\"$plantApiKey\""
+        )
     }
 
     buildTypes {
@@ -36,6 +48,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

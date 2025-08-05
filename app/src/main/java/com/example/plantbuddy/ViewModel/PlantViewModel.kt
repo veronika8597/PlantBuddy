@@ -2,7 +2,6 @@ package com.example.plantbuddy.ViewModel
 
 import android.content.Context
 import android.net.Uri
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
