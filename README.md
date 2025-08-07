@@ -4,12 +4,31 @@
 
 ---
 
+
 ## ✨ Features
 
-- 📷 **Image-Based Plant Recognition** – Upload or take a photo to identify plants via the PlantNet API.
-- 💡 **Smart Diagnosis Placeholder** – Placeholder for upcoming AI-based plant health diagnosis (diseases, deficiencies, etc.)
-- 🎨 **Polished UI/UX** – Custom splash screen with animations, modern theming, and intuitive interface.
-- ⚙️ **Asynchronous API Handling** – Powered by Retrofit, Kotlin coroutines, and clean ViewModel architecture.
+- 📷 **Image-Based Plant Recognition**  
+  Upload or take a photo to identify plants via the Kindwise API.
+
+- 🦠 **Disease Detection**  
+  Instantly checks if the plant is healthy. If not, it detects potential diseases and provides treatment suggestions.
+
+- 💊 **Treatment Suggestions**  
+  Get clear, structured advice:
+  1. 💡 Prevention
+  2. 🌿 Natural remedy
+  3. 💊 Chemical treatment
+
+- 🌿 **Elegant Health Feedback**  
+  Displays messages like “Your plant is healthy 🌿” with clear UI formatting.
+
+- 🎨 **Polished UI/UX**  
+  - Transparent card UI that adapts to content  
+  - Bold + underlined field labels like `Plant:` and `Disease detected:`  
+  - Visual loading animations (Lottie)  
+
+- ⚙️ **Asynchronous API Handling**  
+  Powered by Retrofit, Kotlin coroutines, and clean MVVM architecture.
 
 ---
 
@@ -17,10 +36,8 @@
 
 > Our vision doesn't stop at identification. Coming soon:
 
-- 🧠 **Machine Learning-based Diagnosis**
-  - Train and integrate a custom ML model for detecting diseases or nutrient issues in plants.
-  - Enable health scoring and recommendations per plant.
-- 🌱 **Plant Care Tips**
+- 🧠 **Custom ML Model for Plant Diseases**
+- 🌱 **Plant Care Guides**
   - Add care guides tailored to each plant species.
 - 📊 **User History & Tracking**
   - Save diagnosed plants and monitor progress over time.
@@ -38,7 +55,7 @@
 
 - **Kotlin**
 - **Jetpack Compose**
-- **Retrofit + PlantNet API**
+- **Retrofit + PlantNet API + Kindwise API**
 - **Lottie Animations**
 - **MVVM Architecture**
 
@@ -49,3 +66,13 @@
 1. Clone the repo:
    ```bash
    git clone https://github.com/yourname/plantasia.git
+
+
+---
+
+## 🌱 License
+
+This project is licensed under the MIT License.  
+Feel free to use, modify, and share it freely.
+
+> Use it, learn from it, grow with it 🌿
