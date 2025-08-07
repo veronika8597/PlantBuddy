@@ -84,7 +84,7 @@ fun PlantasiaScreen(plantViewModel: PlantViewModel = viewModel()){
     }
 
     LoadingOverlay(isLoading) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Center)
+        Box(modifier = Modifier.fillMaxSize())
         {
             PlantasiaBackground()
             Column {
@@ -105,9 +105,9 @@ fun PlantasiaScreen(plantViewModel: PlantViewModel = viewModel()){
 
 
                 Card(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp)
-                        .padding(bottom = 100.dp),
+                        ,
                     shape = RoundedCornerShape(16.dp),
                     colors = CardDefaults.cardColors(containerColor = Color(0xA6FFFFFF)),
                     elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
