@@ -1,4 +1,4 @@
-package com.example.plantbuddy.data.network
+package com.example.plantbuddy.data.network.PlantNet
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

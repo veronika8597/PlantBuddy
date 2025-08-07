@@ -2,6 +2,7 @@ package com.example.plantbuddy.ViewModel
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,10 +14,10 @@ import java.io.File
 
 class PlantViewModel : ViewModel()  {
 
+
     private val repository = PlantRepository()
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading.asStateFlow()
-
 
     private val _selectedImageUri = MutableStateFlow<Uri?>(null)
     val selectedImageUri = _selectedImageUri.asStateFlow()
@@ -47,7 +48,7 @@ class PlantViewModel : ViewModel()  {
     }
 
 
-    fun diagnosePlant(context: Context) {
+/*    fun diagnosePlant(context: Context) {
         val uri = _selectedImageUri.value ?: return
 
         viewModelScope.launch {
@@ -65,5 +66,49 @@ class PlantViewModel : ViewModel()  {
             _isLoading.value = false
         }
     }
+
+
+    fun checkPlantDisease(context: Context) {
+        val uri = _selectedImageUri.value ?: return
+
+        viewModelScope.launch {
+            _isLoading.value = true
+            _diagnosis.value = "Checking for disease..."
+
+            val result = repository.diagnoseDisease(context, uri)
+
+            _diagnosis.value = result.getOrElse {
+                "Error: ${it.message}"
+            }
+
+            _isLoading.value = false
+        }
+    }*/
+
+    fun diagnoseFull(context: Context) {
+        val uri = _selectedImageUri.value ?: return
+
+        viewModelScope.launch {
+            _isLoading.value = true
+            _diagnosis.value = "Diagnosing plant and checking health..."
+
+            val plantResult = repository.uploadImage(context, uri)
+
+            if (plantResult.isFailure) {
+                _diagnosis.value = "❌ Plant ID failed: ${plantResult.exceptionOrNull()?.message}"
+                _isLoading.value = false
+                return@launch
+            }
+
+            val plantName = plantResult.getOrNull()
+            val diseaseResult = repository.diagnoseDisease(context, uri)
+
+            val diseaseText = diseaseResult.getOrNull()?.let { "\n$it" } ?: ""
+
+            _diagnosis.value = "Plant: $plantName$diseaseText"
+            _isLoading.value = false
+        }
+    }
+
 
 }

@@ -1,4 +1,4 @@
-package com.example.plantbuddy.data.network
+package com.example.plantbuddy.data.network.PlantNet
 
 import com.example.plantbuddy.Model.PlantPredictionResponse
 import okhttp3.MultipartBody
@@ -16,7 +16,7 @@ interface PlantIdentificationApi {
         @Part images: List<MultipartBody.Part>,
         @Query("api-key") apiKey: String
     ): Response<PlantPredictionResponse>
-    
+
 
 
 }

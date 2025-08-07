@@ -194,7 +194,7 @@ fun PlantasiaScreen(plantViewModel: PlantViewModel = viewModel()){
                     Row(modifier = Modifier.padding(10.dp)) {
                         Button(
                             onClick = {
-                                plantViewModel.diagnosePlant(context)
+                                plantViewModel.diagnoseFull(context)
                             },
                             shape = RoundedCornerShape(8.dp),
                             elevation = ButtonDefaults.buttonElevation(
@@ -276,37 +276,38 @@ fun PlantasiaBackground() {
 
 @Composable
 fun UnderlineLabelText(fullLine: String, modifier: Modifier = Modifier) {
-    val parts = fullLine.split(":", limit = 2)
-    if (parts.size == 2) {
-        Text(
-            buildAnnotatedString {
-                withStyle(
-                    SpanStyle(
-                        textDecoration = TextDecoration.Underline,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                ) {
-                    append(parts[0] + ":")
-                }
-                append(parts[1])
-            },
-            style = MaterialTheme.typography.bodyMedium.copy(
-                lineHeight = 22.sp
-            ),
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = modifier
-        )
-    } else {
-        Text(
-            text = fullLine,
-            style = MaterialTheme.typography.bodyMedium.copy(
-                lineHeight = 22.sp
-            ),
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = modifier
-        )
+    Column(modifier = modifier) {
+        fullLine.lines().forEach { line ->
+            val parts = line.split(":", limit = 2)
+            if (parts.size == 2) {
+                Text(
+                    buildAnnotatedString {
+                        withStyle(
+                            SpanStyle(
+                                textDecoration = TextDecoration.Underline,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        ) {
+                            append(parts[0] + ":")
+                        }
+                        append(parts[1])
+                    },
+                    style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 22.sp),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+            } else {
+                Text(
+                    text = line,
+                    style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 22.sp),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+            }
+        }
     }
 }
+
 
 @Preview
 @Composable
